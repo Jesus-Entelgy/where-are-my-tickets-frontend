@@ -14,7 +14,7 @@ import type {
 } from "@/pages/chat/types/chat-messages";
 import { Spinner } from "@/components/ui/spinner";
 import { Input } from "@/components/ui/input";
-import type { Alert } from "@/pages/chat/types/alerts";
+import type { Ticket } from "@/pages/chat/types/tickets";
 import { useAuthStore } from "@/auth/store/auth.store";
 
 
@@ -31,7 +31,7 @@ const ChatView = () => {
   const { user, logout } = useAuthStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
-  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
 
   // TODO: En el futuro sera generado por el backend
   const [nextTicketNumber, setNextTicketNumber] = useState(1043);
@@ -91,7 +91,7 @@ const ChatView = () => {
       // añadimos el mensaje de confirmacion al historial
       setChatMessages((messages) => [...messages, confirmationMessage]);
       if (result.status === "created_and_assigned") {
-        const incident: Alert = {
+        const incident: Ticket = {
           id: result.ticketId,
           title: `Incidencia en ${application}`,
           application,
@@ -103,8 +103,8 @@ const ChatView = () => {
           technician: result.assignedTechnician,
         };
 
-        // añadimos la incidencia a la lista de alertas
-        setAlerts((currentAlerts) => [incident, ...currentAlerts]);
+        // añadimos la incidencia a la lista de tickets
+        setTickets((currentTickets) => [incident, ...currentTickets]);
       }
       setIsLoading(false);
     }, 800);
@@ -113,7 +113,7 @@ const ChatView = () => {
   return (
     <div className="flex h-screen bg-background">
       {/* SIDE MENU */}
-      <ChatSideMenu alerts={alerts} />
+      <ChatSideMenu tickets={tickets} />
 
       {/* VENATANA DE CHAT */}
       <div className="flex flex-1 flex-col">

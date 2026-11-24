@@ -1,6 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bell } from "lucide-react";
-import type { Alert } from "@/pages/chat/types/alerts";
+import type { Alert } from "@/pages/chat/types/tickets";
 import ChatAlertItem from "@/pages/chat/components/ChatAlertItem";
 
 interface Props {

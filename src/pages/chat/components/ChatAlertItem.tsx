@@ -1,5 +1,5 @@
 import { AlertTriangle, Clock3, Ticket, UserRound } from "lucide-react"
-import type { Alert } from "@/pages/chat/types/alerts"
+import type { Alert } from "@/pages/chat/types/tickets"
 
 interface Props {
   alert: Alert;

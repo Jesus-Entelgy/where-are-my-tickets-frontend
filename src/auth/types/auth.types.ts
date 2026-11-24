@@ -1,15 +1,18 @@
 // FORMULARIOS
 export interface LoginFormValues {
-  email: string;
-  password: string;
+  email: string;        // alejandro.garcia@example.com
+  password: string;     // 12345678
 }
 
 // Usuario
+export type UserRole = "ADMIN" | "USER";
+
 export interface User {
-  id?: number;
-  email: string;
+  id?: string;
+  email: string;      
   firstName: string;
   lastName: string;
+  role: UserRole;
 }
 
 // AUTH STATE
@@ -21,17 +24,30 @@ export type AuthState = {
     token: string | null;
     status: AuthStatus;
     error: string | null;
-    initialize: () => void;
     // Getters
     // Actions
     login: (payload: LoginFormValues) => Promise<boolean>;
-    logout: () => Promise<void>;
+    logout: () => Promise<boolean>;
+    checkAuthStatus: () => Promise<boolean>;
 };
+
+
+// ACTIONS
+export interface CheckAuthStatusActionResponse {
+  user: User;
+  token: string;
+}
+
+export interface GetProfileDataActionResponse {
+  user: User;
+}
 
 // HTTPS REQUESTS - LOGIN
 export interface LoginRequestResponse {
   user: User;
-  token: string;
+  access_token: string;
 }
-// Services
-// export interface LoginServiceResponse
+
+export interface CheckAuthStatusResponse {
+  access_token: string;
+}
