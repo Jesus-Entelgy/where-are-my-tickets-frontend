@@ -4,14 +4,14 @@ import { useTheme } from "@/hooks/useTheme";
 import { Plus, TicketCheck } from "lucide-react";
 import ChatAlerts from "@/pages/chat/components/ChatAlerts";
 import ThemeButton from "@/components/ThemeButton/ThemeButton";
-import type { Alert } from "@/pages/chat/types/alerts";
+import type { Ticket } from "@/pages/chat/types/tickets";
 
 interface Props {
-  alerts: Alert[];
+  tickets: Ticket[];
 }
 
-const ChatSideMenu = ({ alerts }: Props) => {
-  console.log(alerts)
+const ChatSideMenu = ({ tickets }: Props) => {
+  // console.log(tickets)
   const { setTheme } = useTheme();
 
   return (
@@ -52,7 +52,7 @@ const ChatSideMenu = ({ alerts }: Props) => {
       </section>
 
       <section className="min-h-0 flex-1 rounded-xl border bg-background p-3">
-        <ChatAlerts alerts={alerts} />
+        <ChatAlerts alerts={tickets} />
       </section>
 
       <section className="shrink-0 rounded-xl border bg-background p-3">

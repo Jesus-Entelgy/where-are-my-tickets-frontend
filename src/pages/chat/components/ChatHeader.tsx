@@ -1,4 +1,4 @@
-import type { User } from "@/auth/types/auth";
+import type { User } from "@/auth/types/auth.types";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,22 +10,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 interface Props {
   user: User;
-  logout: () => Promise<void>;
+  logout: () => Promise<boolean>;
 }
 
 const ChatHeader = ({ user, logout }: Props) => {
   const navigate = useNavigate();
-
+  
   const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-    toast.success("Sesión cerrada exitosamente");
+    const loggedOut = await logout();
+    if (loggedOut) navigate("/login");
   };
+
+  const formatUserFallback = (user: User) => {
+    const firstNameInitial = user.firstName.charAt(0).toUpperCase();
+    const lastNameInitial = user.lastName.charAt(0).toUpperCase();
+    return `${firstNameInitial}${lastNameInitial}`;
+  }
 
   return (
     <header className="border-b px-6 py-3">
@@ -36,7 +40,7 @@ const ChatHeader = ({ user, logout }: Props) => {
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Avatar>
                   {/* <AvatarImage src="https://github.com/shadcn.png" alt="shadcn" /> */}
-                  <AvatarFallback>AG</AvatarFallback>
+                  <AvatarFallback>{formatUserFallback(user)}</AvatarFallback>
                 </Avatar>
               </Button>
             }

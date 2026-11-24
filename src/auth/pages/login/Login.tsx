@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/auth/store/auth.store";
-import type { LoginFormValues } from "@/auth/types/auth";
+import type { LoginFormValues } from "@/auth/types/auth.types";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,8 +19,8 @@ import { toast } from "sonner";
 export const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
-  const login = useAuthStore((state) => state.login);
+  const { login } = useAuthStore();
+
   const {
     register,
     handleSubmit,
